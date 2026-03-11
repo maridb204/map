@@ -93,6 +93,7 @@ function generateAllCoordinates() {
     allCoordinates["61/180"] = { lat: 13.975573400228946, lng: 100.67394944478055 };
     allCoordinates["61/181"] = { lat: 13.975562038208807, lng: 100.67385545064592 };
     allCoordinates["61/182"] = { lat: 13.9755544783, lng: 100.6737039175 };
+    allCoordinates["61/125"] = { lat: 13.97587034684261, lng: 100.67374836368649 };
 
     return allCoordinates;
 }
