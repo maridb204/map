@@ -1,5 +1,7 @@
-// พิกัดบ้านเลขที่ทุกหลัง หมู่บ้านพฤกษ์ลดา 3 ต.ลาดสวาย อ.ลำลูกกา จ.ปทุมธานี
-// พิกัดกลางของหมู่บ้าน: 13.9580, 100.7950
+// ที่อยู่หมู่บ้าน
+const VILLAGE = "หมู่บ้านพฤกษ์ลดา 3 ตำบลลาดสวาย อำเภอลำลูกกา จังหวัดปทุมธานี 12150";
+
+// พิกัดบ้านเลขที่ทุกหลัง (สำรอง ใช้เมื่อค้นหาด้วย Google Maps URL แล้วไม่ตรง)
 const localCoordinates = {
     "61/1": { lat: 13.95900, lng: 100.79200 },
     "61/2": { lat: 13.95905, lng: 100.79205 },
@@ -318,41 +320,32 @@ const localCoordinates = {
     "61/315": { lat: 13.97470, lng: 100.80770 }
 };
 
-document.getElementById('addressForm').addEventListener('submit', async (e) => {
+document.getElementById('addressForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const address = document.getElementById('address').value.trim();
+    const houseNumber = document.getElementById('address').value.trim();
+    const resultEl = document.getElementById('result');
 
-    // Check if the address exists in the localCoordinates
-    if (localCoordinates[address]) {
-        const location = localCoordinates[address];
-        const mapUrl = `https://www.google.com/maps?q=${location.lat},${location.lng}`;
-        document.getElementById('result').innerHTML = `<a href="${mapUrl}" target="_blank">เปิด Google Maps</a>`;
+    if (!houseNumber) {
+        resultEl.textContent = 'กรุณากรอกบ้านเลขที่';
         return;
     }
 
-    try {
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=AIzaSyDBqXGAc8L5hi8w5mjO9rE01cxEIM21bzw`, {
-            method: 'GET',
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('API Response:', data);
-
-        if (!data.results || data.results.length === 0) {
-            console.error('No results found:', data);
-            document.getElementById('result').textContent = 'ไม่พบที่อยู่ใน Google Maps';
-        } else {
-            console.log('Location found:', data.results[0].geometry.location);
-            const location = data.results[0].geometry.location;
-            const mapUrl = `https://www.google.com/maps?q=${location.lat},${location.lng}`;
-            document.getElementById('result').innerHTML = `<a href="${mapUrl}" target="_blank">เปิด Google Maps</a>`;
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('result').textContent = 'เกิดข้อผิดพลาดในการเชื่อมต่อกับ Google Maps API';
+    // ถ้ามีพิกัดตรงๆ ในฐานข้อมูลให้ใช้พิกัดนั้น
+    if (localCoordinates[houseNumber]) {
+        const loc = localCoordinates[houseNumber];
+        const mapUrl = `https://www.google.com/maps?q=${loc.lat},${loc.lng}`;
+        resultEl.innerHTML = `
+            <p>บ้านเลขที่: <strong>${houseNumber}</strong></p>
+            <a href="${mapUrl}" target="_blank">📍 เปิด Google Maps</a>
+        `;
+        return;
     }
+
+    // ไม่ต้องใช้ API - ส่งที่อยู่เต็มไปให้ Google Maps ค้นหาเอง (ฟรี!)
+    const fullAddress = `${houseNumber} ${VILLAGE}`;
+    const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(fullAddress)}`;
+    resultEl.innerHTML = `
+        <p>บ้านเลขที่: <strong>${houseNumber}</strong></p>
+        <a href="${mapUrl}" target="_blank">📍 เปิด Google Maps</a>
+    `;
 });
