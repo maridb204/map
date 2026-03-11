@@ -148,7 +148,7 @@ function generateAllCoordinates() {
         { lat: 13.975309085542008, lng: 100.6784782720961 }
     );
     allCoordinates = { ...allCoordinates, ...recalculated289To291 };
-    allCoordinates["61/290"] = recalculated289To291["61/290"];
+    allCoordinates["61/290"] = { lat: 13.975297401224967, lng: 100.67821894813207 };
 
     return allCoordinates;
 }
@@ -159,9 +159,10 @@ const localCoordinates = generateAllCoordinates();
 
 document.getElementById("addressForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const houseNumber = document.getElementById("address").value.trim();
+    const rawInput = document.getElementById("address").value.trim();
+    const houseNumber = rawInput.includes("/") ? rawInput : `61/${rawInput}`;
     const resultEl = document.getElementById("result");
-    if (!houseNumber) {
+    if (!rawInput) {
         resultEl.textContent = "กรุณากรอกบ้านเลขที่";
         return;
     }
