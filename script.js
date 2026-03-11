@@ -102,6 +102,37 @@ function generateAllCoordinates() {
     allCoordinates["61/126"] = { lat: 13.975876396211618, lng: 100.67385932466316 };
     allCoordinates["61/140"] = { lat: 13.975803629207332, lng: 100.67534023319233 };
 
+    const recalculated95To102 = interpolateCoordinates(
+        95,
+        102,
+        { lat: 13.975979225289114, lng: 100.6753843482034 },
+        { lat: 13.975977287340479, lng: 100.67465562371189 }
+    );
+    const recalculated102To110 = interpolateCoordinates(
+        102,
+        110,
+        { lat: 13.975977287340479, lng: 100.67465562371189 },
+        { lat: 13.975985166998065, lng: 100.673847967166 }
+    );
+    const recalculated110To118 = interpolateCoordinates(
+        110,
+        118,
+        { lat: 13.975985166998065, lng: 100.673847967166 },
+        { lat: 13.976021812191652, lng: 100.67298725621703 }
+    );
+
+    allCoordinates = {
+        ...allCoordinates,
+        ...recalculated95To102,
+        ...recalculated102To110,
+        ...recalculated110To118,
+    };
+
+    allCoordinates["61/95"] = { lat: 13.975979225289114, lng: 100.6753843482034 };
+    allCoordinates["61/102"] = { lat: 13.975977287340479, lng: 100.67465562371189 };
+    allCoordinates["61/110"] = { lat: 13.975985166998065, lng: 100.673847967166 };
+    allCoordinates["61/118"] = { lat: 13.976021812191652, lng: 100.67298725621703 };
+
     return allCoordinates;
 }
 
