@@ -133,6 +133,16 @@ function generateAllCoordinates() {
     allCoordinates["61/110"] = { lat: 13.975985166998065, lng: 100.673847967166 };
     allCoordinates["61/118"] = { lat: 13.976021812191652, lng: 100.67298725621703 };
 
+    const recalculated276To285 = interpolateCoordinates(
+        276,
+        285,
+        { lat: 13.975397202390573, lng: 100.67946677877315 },
+        { lat: 13.975435915683462, lng: 100.67842983311046 }
+    );
+    allCoordinates = { ...allCoordinates, ...recalculated276To285 };
+    allCoordinates["61/276"] = { lat: 13.975397202390573, lng: 100.67946677877315 };
+    allCoordinates["61/285"] = { lat: 13.975435915683462, lng: 100.67842983311046 };
+
     const recalculated63To80 = interpolateCoordinates(
         63,
         80,
@@ -149,7 +159,6 @@ function generateAllCoordinates() {
     );
     allCoordinates = { ...allCoordinates, ...recalculated289To291 };
     allCoordinates["61/290"] = { lat: 13.975300548017922, lng: 100.67786993876649 };
-    allCoordinates["61/285"] = { lat: 13.97544620920599, lng: 100.67843486345343 };
 
     return allCoordinates;
 }
