@@ -189,8 +189,8 @@ document.getElementById("addressForm").addEventListener("submit", async (e) => {
     // 1. Check local coordinates first
     if (localCoordinates[houseNumber]) {
         const loc = localCoordinates[houseNumber];
-        const mapUrl = `https://www.google.com/maps/place/${encodeURIComponent(houseNumber)}/@${loc.lat},${loc.lng},18z`;
-        resultEl.innerHTML = `<p>บ้านเลขที่: <strong>${houseNumber}</strong> (จากฐานข้อมูล)</p><a href="${mapUrl}" target="_blank">📍 เปิด Google Maps</a>`;
+        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}`;
+        resultEl.innerHTML = `<p style="font-size:1.3em;font-weight:bold;margin-bottom:4px">🏠 ${houseNumber}</p><p style="margin:2px 0">พิกัด: ${loc.lat.toFixed(6)}, ${loc.lng.toFixed(6)}</p><a href="${mapUrl}" target="_blank">📍 เปิด Google Maps</a>`;
         return;
     }
 
@@ -209,8 +209,8 @@ document.getElementById("addressForm").addEventListener("submit", async (e) => {
 
         if (data && data.length > 0) {
             const loc = data[0];
-            const mapUrl = `https://www.google.com/maps/place/${encodeURIComponent(houseNumber)}/@${loc.lat},${loc.lon},18z`;
-            resultEl.innerHTML = `<p>บ้านเลขที่: <strong>${houseNumber}</strong> (ค้นหาออนไลน์)</p><a href="${mapUrl}" target="_blank">📍 เปิด Google Maps</a>`;
+            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lon}`;
+            resultEl.innerHTML = `<p style="font-size:1.3em;font-weight:bold;margin-bottom:4px">🏠 ${houseNumber}</p><p style="margin:2px 0">พิกัด: ${parseFloat(loc.lat).toFixed(6)}, ${parseFloat(loc.lon).toFixed(6)}</p><a href="${mapUrl}" target="_blank">📍 เปิด Google Maps</a>`;
         } else {
             // 3. If OpenStreetMap fails, fallback to Google's own text search as a last resort
             const googleSearchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
