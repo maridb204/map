@@ -102,6 +102,7 @@ function generateAllCoordinates() {
         { lat: 13.975803629207332, lng: 100.67534023319233 }
     );
     allCoordinates = { ...allCoordinates, ...recalculated126To140 };
+    allCoordinates["61/126"] = { lat: 13.975876396211618, lng: 100.67385932466316 };
 
     return allCoordinates;
 }
