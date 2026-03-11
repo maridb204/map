@@ -133,6 +133,23 @@ function generateAllCoordinates() {
     allCoordinates["61/110"] = { lat: 13.975985166998065, lng: 100.673847967166 };
     allCoordinates["61/118"] = { lat: 13.976021812191652, lng: 100.67298725621703 };
 
+    const recalculated63To80 = interpolateCoordinates(
+        63,
+        80,
+        { lat: 13.975959207710762, lng: 100.67889775972462 },
+        { lat: 13.975962871747324, lng: 100.67696127914469 }
+    );
+    allCoordinates = { ...allCoordinates, ...recalculated63To80 };
+
+    const recalculated289To291 = interpolateCoordinates(
+        289,
+        291,
+        { lat: 13.975285716907926, lng: 100.67795962416803 },
+        { lat: 13.975309085542008, lng: 100.6784782720961 }
+    );
+    allCoordinates = { ...allCoordinates, ...recalculated289To291 };
+    allCoordinates["61/290"] = recalculated289To291["61/290"];
+
     return allCoordinates;
 }
 
