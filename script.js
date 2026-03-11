@@ -149,6 +149,7 @@ function generateAllCoordinates() {
     );
     allCoordinates = { ...allCoordinates, ...recalculated289To291 };
     allCoordinates["61/290"] = { lat: 13.975300548017922, lng: 100.67786993876649 };
+    delete allCoordinates["61/285"];
 
     return allCoordinates;
 }
