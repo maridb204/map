@@ -189,8 +189,7 @@ document.getElementById("addressForm").addEventListener("submit", async (e) => {
     // 1. Check local coordinates first
     if (localCoordinates[houseNumber]) {
         const loc = localCoordinates[houseNumber];
-        const mapQuery = `${loc.lat},${loc.lng} (${houseNumber})`;
-        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}`;
         resultEl.innerHTML = `<p>บ้านเลขที่: <strong>${houseNumber}</strong> (จากฐานข้อมูล)</p><a href="${mapUrl}" target="_blank">📍 เปิด Google Maps</a>`;
         return;
     }
@@ -210,8 +209,7 @@ document.getElementById("addressForm").addEventListener("submit", async (e) => {
 
         if (data && data.length > 0) {
             const loc = data[0];
-            const mapQuery = `${loc.lat},${loc.lon} (${houseNumber})`;
-            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lon}`;
             resultEl.innerHTML = `<p>บ้านเลขที่: <strong>${houseNumber}</strong> (ค้นหาออนไลน์)</p><a href="${mapUrl}" target="_blank">📍 เปิด Google Maps</a>`;
         } else {
             // 3. If OpenStreetMap fails, fallback to Google's own text search as a last resort
