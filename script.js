@@ -161,10 +161,19 @@ const localCoordinates = generateAllCoordinates();
 document.getElementById("addressForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const rawInput = document.getElementById("address").value.trim();
-    const houseNumber = rawInput.includes("/") ? rawInput : `61/${rawInput}`;
     const resultEl = document.getElementById("result");
     if (!rawInput) {
         resultEl.textContent = "กรุณากรอกบ้านเลขที่";
+        return;
+    }
+
+    const numericParts = rawInput.match(/\d+/g) || [];
+    const houseNumber = numericParts.length === 0
+        ? ""
+        : `61/${numericParts[numericParts.length - 1]}`;
+
+    if (!houseNumber) {
+        resultEl.textContent = "รูปแบบบ้านเลขที่ไม่ถูกต้อง";
         return;
     }
 
