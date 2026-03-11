@@ -38,6 +38,7 @@ function generateAllCoordinates() {
         "61/117": { lat: 13.976040085843536, lng: 100.67308671958625 },
         "61/118": { lat: 13.976061761566964, lng: 100.67298657981546 },
         "61/136": { lat: 13.975837817300437, lng: 100.67491286010117 },
+        "61/137": { lat: 13.97582604338498, lng: 100.67501224634691 },
         "61/154": { lat: 13.97575159218996, lng: 100.676939852697 },
         "61/155": { lat: 13.975473219269206, lng: 100.67694178682412 },
         "61/174": { lat: 13.975556632947127, lng: 100.67463774092636 },
@@ -67,15 +68,6 @@ function generateAllCoordinates() {
     ];
 
     let allCoordinates = { ...anchorPoints };
-    // Manually define the start for the 137-154 range as it's not an anchor
-    // We assume 137 is across the street from 136, so we can use 136's lat and 154's lng as a good estimate.
-    // A more precise way would be to get 137's actual coordinate.
-    // For now, we will derive it from 136 and 154.
-    const house136 = anchorPoints['61/136'];
-    const house154 = anchorPoints['61/154'];
-    if (house136 && house154) {
-        allCoordinates['61/137'] = { lat: house136.lat, lng: house136.lng + (house154.lng - house136.lng) / (154 - 137) };
-    }
     
     ranges.forEach(range => {
         const startNum = range.start;
