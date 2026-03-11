@@ -55,7 +55,7 @@ function generateAllCoordinates() {
     const ranges = [
         // Main horizontal roads
         { start: 16, end: 46 }, { start: 47, end: 63 },
-        { start: 80, end: 117 }, { start: 118, end: 154 },
+        { start: 80, end: 117 }, { start: 154, end: 118 }, // Corrected range
         // Cul-de-sacs (sorted by visual location)
         { start: 1, end: 15 },
         { start: 248, end: 261 }, { start: 234, end: 247 },
