@@ -16,13 +16,10 @@ function interpolateCoordinates(startNum, endNum, startCoord, endCoord) {
     const latStep = (endCoord.lat - startCoord.lat) / numHouses;
     const lngStep = (endCoord.lng - startCoord.lng) / numHouses;
 
-    const isDescending = startNum > endNum;
-
     for (let i = 0; i <= numHouses; i++) {
-        const step = isDescending ? numHouses - i : i;
         const currentNum = startNum < endNum ? startNum + i : startNum - i;
-        const lat = startCoord.lat + (latStep * step);
-        const lng = startCoord.lng + (lngStep * step);
+        const lat = startCoord.lat + (latStep * i);
+        const lng = startCoord.lng + (lngStep * i);
         coordinates[`61/${currentNum}`] = { lat, lng };
     }
     return coordinates;
