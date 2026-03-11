@@ -17,7 +17,7 @@ function interpolateCoordinates(startNum, endNum, startCoord, endCoord) {
     const lngStep = (endCoord.lng - startCoord.lng) / numHouses;
 
     for (let i = 0; i <= numHouses; i++) {
-        const currentNum = startNum < endNum ? startNum + i : startNum - i;
+        const currentNum = startNuแm < endNum ? startNum + i : startNum - i;
         const lat = startCoord.lat + (latStep * i);
         const lng = startCoord.lng + (lngStep * i);
         coordinates[`61/${currentNum}`] = { lat, lng };
@@ -37,6 +37,7 @@ function generateAllCoordinates() {
         "61/80": { lat: 13.975962871747324, lng: 100.67696127914469 },
         "61/117": { lat: 13.976040085843536, lng: 100.67308671958625 },
         "61/118": { lat: 13.976061761566964, lng: 100.67298657981546 },
+        "61/136": { lat: 13.975837817300437, lng: 100.67491286010117 },
         "61/154": { lat: 13.97575159218996, lng: 100.676939852697 },
         "61/155": { lat: 13.975473219269206, lng: 100.67694178682412 },
         "61/174": { lat: 13.975556632947127, lng: 100.67463774092636 },
@@ -55,7 +56,9 @@ function generateAllCoordinates() {
     const ranges = [
         // Main horizontal roads
         { start: 16, end: 46 }, { start: 47, end: 63 },
-        { start: 80, end: 117 }, { start: 154, end: 118 }, // Corrected range
+        { start: 80, end: 117 }, 
+        // Split the bottom road at the corner (136)
+        { start: 118, end: 136 }, { start: 137, end: 154 },
         // Cul-de-sacs (sorted by visual location)
         { start: 1, end: 15 },
         { start: 248, end: 261 }, { start: 234, end: 247 },
@@ -64,11 +67,21 @@ function generateAllCoordinates() {
     ];
 
     let allCoordinates = { ...anchorPoints };
+    // Manually define the start for the 137-154 range as it's not an anchor
+    // We assume 137 is across the street from 136, so we can use 136's lat and 154's lng as a good estimate.
+    // A more precise way would be to get 137's actual coordinate.
+    // For now, we will derive it from 136 and 154.
+    const house136 = anchorPoints['61/136'];
+    const house154 = anchorPoints['61/154'];
+    if (house136 && house154) {
+        allCoordinates['61/137'] = { lat: house136.lat, lng: house136.lng + (house154.lng - house136.lng) / (154 - 137) };
+    }
+    
     ranges.forEach(range => {
         const startNum = range.start;
         const endNum = range.end;
-        const startCoord = anchorPoints[`61/${startNum}`];
-        const endCoord = anchorPoints[`61/${endNum}`];
+        const startCoord = allCoordinates[`61/${startNum}`]; // Use allCoordinates to get derived start points
+        const endCoord = allCoordinates[`61/${endNum}`];
 
         if (startCoord && endCoord) {
             const interpolated = interpolateCoordinates(startNum, endNum, startCoord, endCoord);
