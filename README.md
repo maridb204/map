@@ -15,4 +15,4 @@ You can deploy this project using GitHub Pages:
 4. Save the settings and get the URL for your hosted project.
 
 ## Note
-Replace `YOUR_GOOGLE_MAPS_API_KEY` in `script.js` with your actual Google Maps API key.
+Replace `YOUR_GOOGLE_MAPS_API_KEY` in `script.js` with your actual Google Maps API key: ``.

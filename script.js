@@ -6,7 +6,7 @@ document.getElementById('addressForm').addEventListener('submit', async (e) => {
         const response = await fetch('https://maps.googleapis.com/maps/api/geocode/json', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ address, key: 'YOUR_GOOGLE_MAPS_API_KEY' }),
+            body: JSON.stringify({ address, key: 'AIzaSyDBqXGAc8L5hi8w5mjO9rE01cxEIM21bzw' }),
         });
 
         const data = await response.json();
