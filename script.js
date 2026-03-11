@@ -95,6 +95,14 @@ function generateAllCoordinates() {
     allCoordinates["61/182"] = { lat: 13.9755544783, lng: 100.6737039175 };
     allCoordinates["61/125"] = { lat: 13.975894669561173, lng: 100.67375414356911 };
 
+    const recalculated126To140 = interpolateCoordinates(
+        126,
+        140,
+        { lat: 13.975876396211618, lng: 100.67385932466316 },
+        { lat: 13.975803629207332, lng: 100.67534023319233 }
+    );
+    allCoordinates = { ...allCoordinates, ...recalculated126To140 };
+
     return allCoordinates;
 }
 
